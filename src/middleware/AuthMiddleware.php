@@ -14,9 +14,18 @@ class AuthMiddleware
     // Check if request is authenticated
     public function authenticate()
     {
-        // Get Authorization header
-        $headers = getallheaders();
-        $authHeader = isset($headers['Authorization']) ? $headers['Authorization'] : null;
+        // Get Authorization header - try multiple methods for compatibility
+        $authHeader = null;
+        
+        if (function_exists('getallheaders')) {
+            $headers = getallheaders();
+            $authHeader = $headers['Authorization'] ?? null;
+        }
+        
+        // Fallback to $_SERVER
+        if (!$authHeader && isset($_SERVER['HTTP_AUTHORIZATION'])) {
+            $authHeader = $_SERVER['HTTP_AUTHORIZATION'];
+        }
 
         if (!$authHeader) {
             http_response_code(401);
