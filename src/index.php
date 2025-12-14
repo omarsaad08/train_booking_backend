@@ -7,12 +7,13 @@ ini_set('display_errors', '0');
 ini_set('log_errors', '1');
 error_reporting(E_ALL);
 
-// CORS Headers
+// CORS Headers - Allow all origins and methods
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
-header("Access-Control-Max-Age: 3600");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With, Origin, Accept");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, PATCH, OPTIONS");
+header("Access-Control-Max-Age: 86400");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With, Origin, Accept, Cache-Control, DNT, If-Modified-Since, Keep-Alive, User-Agent, Range");
+header("Access-Control-Expose-Headers: Content-Length, Content-Range, Authorization");
 
 // Error handling
 set_error_handler(function($errno, $errstr, $errfile, $errline) {
